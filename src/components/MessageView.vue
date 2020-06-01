@@ -47,8 +47,7 @@ div#message {
   display: flex;
   text-align: left;
   font-size: 16px;
-  font-family: monospace;
-  font-weight: bold;
+  font-family: 'League Mono', monospace;
 }
 
 div#offset-container {
