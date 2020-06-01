@@ -18,13 +18,17 @@ export default {
   },
   data: function() {
     return {
-      msgs
+      msgs: msgs.slice(5,10)
     }
   }
 }
 </script>
 
 <style>
+body { 
+  background-color: #080808;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

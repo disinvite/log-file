@@ -1,27 +1,19 @@
 <template>
   <div id="hex-container">
-    <div v-for="(split, xindex) in hexArr" v-bind:key="xindex">
-      <span>{{ (xindex * 16).toString(16).padStart(4, '0').toUpperCase() }}: </span>
-      <span v-for="(hex, yindex) in split"
-        v-bind:key="yindex"
-        v-bind:class="{ focus: hex.sliceNumber === focus }"
-        v-on:mouseover="$emit('focusChange', hex.sliceNumber)"
-        v-on:mouseout="$emit('focusChange', -1)">{{ dataToHex(hex.data) }}</span>
-    </div>
+    <span v-for="(hex, index) in data"
+      v-bind:key="index"
+      v-bind:class="{ focus: index === focus,
+        c0: (index % 5) === 0,
+        c1: (index % 5) === 1,
+        c2: (index % 5) === 2,
+        c3: (index % 5) === 3,
+        c4: (index % 5) === 4}"
+      v-on:mouseover="$emit('focusChange', index)"
+      v-on:mouseout="$emit('focusChange', -1)">{{ hex }}</span>
   </div>
 </template>
 
 <script>
-// hacky
-function dataToHex(data) {
-  return data.split('')
-    .map(x => x.charCodeAt(0)
-      .toString(16)
-      .padStart(2,'0')
-      .toUpperCase()
-    )
-    .join(' ')
-}
 
 export default {
   name: 'HexView',
@@ -29,30 +21,22 @@ export default {
     header: Object,
     data: Array,
     focus: Number
-  },
-  methods: {
-    dataToHex
-  },
-  data: function() {
-    return {
-      hexArr: this.data
-    }
   }
 }
 </script>
 
 <style scoped>
+.c0 { color: #a0c1b9; }
+.c1 { color: #abe1fd; }
+.c2 { color: #fed1be; }
+.c3 { color: #f0e0a2; }
+.c4 { color: #fdfdf8; }
+
 #hex-container {
-  width: 75%;
-  font-size: 16px;
-  text-align: left;
-  font-family: monospace;
-  padding-right: 100px;
-}
-#hex-container > div > span::after {
-  content: " ";
+  width: 470px;
+  line-break: anywhere;
 }
 span.focus {
-  background-color: #ddd;
+  background-color: #444;
 }
 </style>

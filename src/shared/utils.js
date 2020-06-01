@@ -1,30 +1,28 @@
-export function separate2(arr, length = 14) {
-  const out = [];
-  let stage = [];
-  const pre_slice = arr.map((data, sliceNumber) => ({data, sliceNumber}));
-  let charactersLeft = length;
-
-  while (pre_slice.length > 0) {
-    let { sliceNumber, data } = pre_slice.shift();
-    while (data.length > 0) {
-      const y = { sliceNumber, data: data.slice(0, charactersLeft)};
-      data = data.slice(charactersLeft);
-      charactersLeft -= y.data.length; // subtract how much we actually got
-      stage.push(y);
-
-      if (charactersLeft === 0) {
-        // LINE BREAK HERE
-        out.push(stage);
-        stage = [];
-        charactersLeft = length;
-      }
-    }
-  }
-
-  // but why
-  if (stage.length > 0) {
-    out.push(stage);
-  }
-
-  return out;
+// replace non-printable ascii with mid-dot
+// replace space with nbsp
+// neither of these will break the line
+function strToAsciiDisplay(str) {
+  return str
+    .replace(/[^\x20-\x7e]/g, '·')
+    .replace(/\x20/g, '\xa0')
+    .replace(/-/g, '\u2011');
 }
+
+function strToHexDisplay(str) {
+  return str.split('')
+    .map(x => x.charCodeAt(0)
+      .toString(16)
+      .padStart(2,'0')
+      .toUpperCase()
+    )
+    .join('\xa0') + '\xa0';
+}
+
+export function separate3ascii(arr) {
+  return arr.map(strToAsciiDisplay);
+}
+
+export function separate3hex(arr) {
+  return arr.map(strToHexDisplay);
+}
+

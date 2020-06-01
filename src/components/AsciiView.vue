@@ -1,19 +1,19 @@
 <template>
   <div id="ascii-container">
-    <div v-for="(split, xindex) in data" v-bind:key="xindex">
-      <span v-for="(ascii, yindex) in split"
-        v-bind:key="yindex"
-        v-bind:class="{ focus: ascii.sliceNumber === focus }"
-        v-on:mouseover="$emit('focusChange', ascii.sliceNumber)"
-        v-on:mouseout="$emit('focusChange', -1)">{{ dataToAscii(ascii.data) }}</span>
-    </div>
+    <span v-for="(ascii, index) in data"
+      v-bind:key="index"
+      v-bind:class="{ focus: index === focus,
+        c0: (index % 5) === 0,
+        c1: (index % 5) === 1,
+        c2: (index % 5) === 2,
+        c3: (index % 5) === 3,
+        c4: (index % 5) === 4}"
+      v-on:mouseover="$emit('focusChange', index)"
+      v-on:mouseout="$emit('focusChange', -1)">{{ ascii }}</span>
   </div>
 </template>
 
 <script>
-function dataToAscii(data) {
-  return data.replace(/[^\x20-\x7e]/g, '.');
-}
 
 export default {
   name: 'AsciiView',
@@ -21,23 +21,22 @@ export default {
     header: Object,
     data: Array,
     focus: Number
-  },
-  methods: {
-    dataToAscii
   }
 }
 </script>
 
 <style scoped>
+.c0 { color: #a0c1b9; }
+.c1 { color: #abe1fd; }
+.c2 { color: #fed1be; }
+.c3 { color: #f0e0a2; }
+.c4 { color: #fdfdf8; }
+
 #ascii-container {
-  width: 25%;
-  font-size: 1.2em;
-  text-align: left;
-  font-family: monospace;
-}
-#ascii-container > span {  
+  width: 160px;
+  line-break: anywhere;
 }
 span.focus {
-  background-color: #ddd;
+  background-color: #444;
 }
 </style>
