@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <p>{{ focus }}</p>
+  <div id="message">
     <HexView
       v-bind:header="message.header"
       v-bind:data="sliced"
@@ -30,7 +29,7 @@ export default {
   },
   data: function() {
     return {
-      sliced: separate2(this.message.data),
+      sliced: separate2(this.message.data, 16),
       focus: -1
     }
   }
@@ -38,4 +37,8 @@ export default {
 </script>
 
 <style scoped>
+div#message {
+  margin-bottom: 1.0em;
+  display: flex;
+}
 </style>

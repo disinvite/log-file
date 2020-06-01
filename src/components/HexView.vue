@@ -1,6 +1,7 @@
 <template>
   <div id="hex-container">
     <div v-for="(split, xindex) in hexArr" v-bind:key="xindex">
+      <span>{{ (xindex * 16).toString(16).padStart(4, '0').toUpperCase() }}: </span>
       <span v-for="(hex, yindex) in split"
         v-bind:key="yindex"
         v-bind:class="{ focus: hex.sliceNumber === focus }"
@@ -42,11 +43,11 @@ export default {
 
 <style scoped>
 #hex-container {
-  display: inline-block;
+  width: 75%;
   font-size: 16px;
   text-align: left;
   font-family: monospace;
-  margin-right: 100px;
+  padding-right: 100px;
 }
 #hex-container > div > span::after {
   content: " ";

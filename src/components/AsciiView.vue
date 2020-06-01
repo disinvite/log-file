@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 #ascii-container {
-  display: inline-block;
+  width: 25%;
   font-size: 1.2em;
   text-align: left;
   font-family: monospace;
